@@ -1,0 +1,141 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc", "import", "promise"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": [
+      "warn",
+      {
+        "allowConstantExport": true
+      }
+    ],
+    "eqeqeq": ["error", "smart"],
+    "no-console": [
+      "warn",
+      {
+        "allow": ["warn", "error"]
+      }
+    ],
+    "typescript/consistent-type-imports": "error",
+    "import/no-cycle": "error"
+  },
+  "overrides": [
+    {
+      "files": ["src/domain/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/app/*",
+                  "@/app/**",
+                  "@/data/*",
+                  "@/data/**",
+                  "@/features/*",
+                  "@/features/**",
+                  "@/pages/*",
+                  "@/pages/**",
+                  "@/shared/*",
+                  "@/shared/**"
+                ],
+                "message": "domain qatı heç bir qatdan asılı OLA BİLMƏZ — yalnız @/domain daxilində import edin."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/shared/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/app/*",
+                  "@/app/**",
+                  "@/data/*",
+                  "@/data/**",
+                  "@/features/*",
+                  "@/features/**",
+                  "@/pages/*",
+                  "@/pages/**"
+                ],
+                "message": "shared qatı yalnız @/domain və @/shared-dən asılı ola bilər."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/data/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/app/*",
+                  "@/app/**",
+                  "@/features/*",
+                  "@/features/**",
+                  "@/pages/*",
+                  "@/pages/**"
+                ],
+                "message": "data qatı yuxarı qatlardan (features/pages/app) asılı ola bilməz."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/features/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/app/*",
+                  "@/app/**",
+                  "@/pages/*",
+                  "@/pages/**",
+                  "@/data/repositories/*",
+                  "@/data/repositories/**",
+                  "@/data/http/*",
+                  "@/data/http/**"
+                ],
+                "message": "features qatı konkret implementasiyadan yox, @/domain/ports interfeyslərindən asılı olmalıdır (DIP)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/pages/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app/*", "@/app/**", "@/data/*", "@/data/**"],
+                "message": "pages qatı yalnız features, shared və domain tiplərindən istifadə edir."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "ignorePatterns": ["dist", "node_modules", "src/shared/ui/primitives"]
+}

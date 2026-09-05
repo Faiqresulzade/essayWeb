@@ -1,0 +1,26 @@
+/** Bütün marşrutlar tək yerdə — komponentlərdə string yol yazılmır. */
+export const ROUTES = {
+  landing: '/',
+  login: '/login',
+  register: '/register',
+  forgotPassword: '/forgot-password',
+  resetPassword: '/reset-password',
+  privacy: '/privacy',
+  terms: '/terms',
+
+  essay: '/essay',
+  history: '/history',
+  historyDetail: (id: number | string) => `/history/${id}`,
+  historyDetailPattern: '/history/:id',
+  lessons: '/lessons',
+  lessonPlayer: (id: number | string) => `/lessons/${id}`,
+  lessonPlayerPattern: '/lessons/:id',
+  students: '/students',
+  groupDetail: (id: number | string) => `/students/groups/${id}`,
+  groupDetailPattern: '/students/groups/:id',
+  studentDetail: (id: number | string) => `/students/${id}`,
+  studentDetailPattern: '/students/:id',
+  reports: '/reports',
+  plans: '/plans',
+  settings: '/settings',
+} as const;
